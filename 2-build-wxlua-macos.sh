@@ -40,8 +40,8 @@ echo "TK_CUSTOM_WXLUA_SRC_DIR: $TK_CUSTOM_WXLUA_SRC_DIR"
 cd "$TK_CUSTOM_BUILD_DIR" || exit
 
 cd ../luajit-dist || exit
-TK_CUSTOM_LUA_LIB_DIR="$(pwd -P)/lib/libluajit-5.1.dylib"
-echo "TK_CUSTOM_LUA_LIB_DIR: $TK_CUSTOM_LUA_LIB_DIR"
+TK_CUSTOM_LUA_LIB="$(pwd -P)/lib/libluajit-5.1.dylib"
+echo "TK_CUSTOM_LUA_LIB: $TK_CUSTOM_LUA_LIB"
 
 TK_CUSTOM_LUA_INC_DIR="$(pwd -P)/include/luajit-2.1"
 echo "TK_CUSTOM_LUA_INC_DIR: $TK_CUSTOM_LUA_INC_DIR"
@@ -65,7 +65,7 @@ echo "TK_CUSTOM_CONFIGURE_OPTS: ${TK_CUSTOM_CONFIGURE_OPTS[*]}"
 for _ in {1..3}; do
 cmake "${TK_CUSTOM_CONFIGURE_OPTS[@]}" \
     -DwxLua_LUA_INCLUDE_DIR="$TK_CUSTOM_LUA_INC_DIR" \
-    -DwxLua_LUA_LIBRARY="$TK_CUSTOM_LUA_LIB_DIR" \
+    -DwxLua_LUA_LIBRARY="$TK_CUSTOM_LUA_LIB" \
     -DwxLua_LUA_LIBRARY_USE_BUILTIN=FALSE \
     -DwxWidgets_CONFIG_EXECUTABLE="$TK_CUSTOM_WX_CONFIG_EXEC_FILE" \
     -G "Unix Makefiles" \
