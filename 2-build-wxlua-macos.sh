@@ -75,7 +75,7 @@ done
 
 # echo -n "press enter to continue: "; read -r
 
-make -j9
+cmake --build .
 
 cp -fv "$TK_CUSTOM_BUILD_DIR/modules/luamodule/lib/MinSizeRel/libwx.dylib" "$SH_SELF_PATH_DIR_RESULT/luajit-dist/lib/lua/5.1"
 

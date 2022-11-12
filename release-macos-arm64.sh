@@ -30,6 +30,11 @@ bash ./0-fetch-deps-macos-arm64.sh || exit
 bash ./1-build-wxWidgets-macos-automake.sh || exit
 bash ./2-build-wxlua-macos.sh || exit
 
+# clean for packing.
+find build-wxWidgets -type f -iname "*.o" -exec rm -rfv {} \;
+find build-wxlua -type f -iname "*.o" -exec rm -rfv {} \;
+rm -rf build-wxlua/apps
+
 TK_LUAJIT_RELEASE_TARBALL="luajit-dist-macos-arm64.tar.gz"
 tar -cvf "$TK_LUAJIT_RELEASE_TARBALL" luajit-dist
 
