@@ -1,5 +1,5 @@
 env:
-  GITHUB_TOKEN: ENCRYPTED[18b4ba0db4d2030f2229d02b066c5d077a1d642be75c865e63d10cadfc50440d5ddef3bf3d0cab69c4d5f9a4ea77cea4]
+  GITHUB_TOKEN: ENCRYPTED[9988534c6b59d785538492e34555a975dd712c40b69982bce538bc0ce12fd9a1c3b77b1fba663abfd1621defbfb8c821]
 
 macos_instance:
   image: ghcr.io/cirruslabs/macos-ventura-xcode:latest
