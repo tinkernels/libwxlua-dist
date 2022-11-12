@@ -62,7 +62,7 @@ export CPPFLAGS="${COMMON_FLAGS}"
 
 ../wxWidgets-src/configure  "${TK_CUSTOM_CONFIGURE_OPTS[@]}" 2>&1 | tee configure-macos2ud.log
 
-echo -n "press enter to continue: "; read -r
+# echo -n "press enter to continue: "; read -r
 
 make -j9
 

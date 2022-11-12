@@ -73,7 +73,7 @@ cmake "${TK_CUSTOM_CONFIGURE_OPTS[@]}" \
     -B.
 done
 
-echo -n "press enter to continue: "; read -r
+# echo -n "press enter to continue: "; read -r
 
 make -j9
 
