@@ -13,8 +13,8 @@ IF %ERRORLEVEL% EQU 0 (
 )
 set _PSC=%_PWSH% -NoProfile -ExecutionPolicy Bypass -Command
 
-%_PSC% -NoProfile -ExecutionPolicy Bypass -Command Invoke-WebRequest -Uri "https://github.com/tinkernels/openresty-luajit2-dist/releases/latest/download/luajit-dist-win32.7z" -OutFile "luajit-dist-win32.7z"
-%_PSC% -NoProfile -ExecutionPolicy Bypass -Command Invoke-WebRequest -Uri "https://github.com/tinkernels/openresty-luajit2-dist/releases/latest/download/luajit-dist-winx64.7z" -OutFile "luajit-dist-winx64.7z"
+%_PSC% Invoke-WebRequest -Uri "https://github.com/tinkernels/openresty-luajit2-dist/releases/latest/download/luajit-dist-win32.7z" -OutFile "luajit-dist-win32.7z"
+%_PSC% Invoke-WebRequest -Uri "https://github.com/tinkernels/openresty-luajit2-dist/releases/latest/download/luajit-dist-winx64.7z" -OutFile "luajit-dist-winx64.7z"
 
 7z x luajit-dist-win32.7z
 7z x luajit-dist-winx64.7z

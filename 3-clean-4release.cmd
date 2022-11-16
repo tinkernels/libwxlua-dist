@@ -24,7 +24,7 @@ for %%i in (
 )
 
 cd /d "%~dp0build-wxlua"
-%_PSC% "Get-ChildItem -Path '%~dp0build-wxlua' -File -Recurse -Exclude '*.h,*.dll,*.lib,*.exp' | Remove-Item -Force"
+%_PSC% "Get-ChildItem -Path '%~dp0build-wxlua' -File -Recurse -Exclude *.h,*.dll,*.lib,*.exp | Remove-Item -Force"
 %_PSC% "$f=[IO.File]::ReadAllText('%_batp%') -split ':remove_empty_dirs\:.*'; iex($f[1]); _func -Directory '%~dp0build-wxlua'"
 
 :__end
