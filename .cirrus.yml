@@ -6,7 +6,8 @@ macos_instance:
 
 task:
   name: build and release
+  only_if: $CIRRUS_RELEASE != ''
   check_clang_script:
     - clang --version
   build_release_script:
-    - /usr/bin/env bash ./release-macos-arm64.sh
+    - bash ./release-macos-arm64.sh
