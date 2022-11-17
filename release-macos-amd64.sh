@@ -35,11 +35,14 @@ find build-wxWidgets -mindepth 1 -maxdepth 1 ! -name lib ! -name include ! -name
 find build-wxlua -mindepth 1 -type f ! -name "*.h" ! -name "*.so" ! -name "*.dylib" ! -name "*.a" -exec rm -rfv {} \;
 find build-wxlua -mindepth 1 -empty -type d -delete
 
+mv build-wxlua wxlua-dist
+mv build-wxWidgets wxWidgets-dist
+
 TK_LUAJIT_RELEASE_TARBALL="luajit-dist-macos-amd64.tar.gz"
 tar -cvf "$TK_LUAJIT_RELEASE_TARBALL" luajit-dist
 
 TK_wxWidgets_RELEASE_TARBALL="wxWidgets-dist-macos-amd64.tar.gz"
-tar -cvf "$TK_wxWidgets_RELEASE_TARBALL" build-wxWidgets
+tar -cvf "$TK_wxWidgets_RELEASE_TARBALL" wxWidgets-dist
 
 TK_wxLua_RELEASE_TARBALL="wxlua-dist-macos-amd64.tar.gz"
-tar -cvf "$TK_wxLua_RELEASE_TARBALL" build-wxlua
+tar -cvf "$TK_wxLua_RELEASE_TARBALL" wxlua-dist
