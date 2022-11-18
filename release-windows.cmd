@@ -13,4 +13,4 @@ cmd /c 3-clean-4release.cmd
 7z a wxlua-dist-winx64.7z wxlua-dist-winx64
 7z a wxlua-dist-win32.7z wxlua-dist-win32
 7z a wxWidgets-dist-winx64.7z wxWidgets-dist-winx64
-7z a wxWidgets-dist-win32.7z wxWidgets-dist-winx32
+7z a wxWidgets-dist-win32.7z wxWidgets-dist-win32
