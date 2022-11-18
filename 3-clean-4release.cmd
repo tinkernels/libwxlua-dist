@@ -15,22 +15,27 @@ set _PSC=%_PWSH% -NoProfile -ExecutionPolicy Bypass -Command
 set "_batf=%~f0"
 set "_batp=%_batf:'=''%"
 
-for %%i in (
-        build-wxWidgets\x86
-        build-wxWidgets\x64
-) do (
-    cd "%~dp0%%i"
+set TK_Wx_Dist=wxWidgets-dist-win32
+rmdir /q /s "%TK_Wx_Dist%"
+move "build-wxWidgets\x86" "%TK_Wx_Dist%"
+pushd "%TK_Wx_Dist%"
     %_PSC% "Get-ChildItem -Name -Depth 0 -Exclude lib,include | Remove-Item -Recurse -Force"
-)
+popd
 
-cd /d "%~dp0build-wxlua"
-%_PSC% "Get-ChildItem -Path '%~dp0build-wxlua' -File -Recurse -Exclude *.h,*.dll,*.lib,*.exp | Remove-Item -Force"
-%_PSC% "$f=[IO.File]::ReadAllText('%_batp%') -split ':remove_empty_dirs\:.*'; iex($f[1]); _func -Directory '%~dp0build-wxlua'"
+set TK_Wx_Dist=wxWidgets-dist-winx64
+rmdir /q /s "%TK_Wx_Dist%"
+move "build-wxWidgets\x64" "%TK_Wx_Dist%"
+pushd "%TK_Wx_Dist%"
+    %_PSC% "Get-ChildItem -Name -Depth 0 -Exclude lib,include | Remove-Item -Recurse -Force"
+popd
 
-:__end
-exit
+@REM cd /d "%~dp0build-wxlua"
+@REM %_PSC% "Get-ChildItem -Path '%~dp0build-wxlua' -File -Recurse -Exclude *.h,*.dll,*.lib,*.exp | Remove-Item -Force"
+@REM %_PSC% "$f=[IO.File]::ReadAllText('%_batp%') -split ':embeded_ps1\:.*'; iex($f[1]); _func -Directory '%~dp0build-wxlua'"
 
-:remove_empty_dirs:
+goto __END
+
+:embeded_ps1:
 function _func {
     param (
         [string]$Directory
@@ -47,4 +52,6 @@ function _func {
         }
     } while ($action_count -ne 0)
 }
-:remove_empty_dirs:
+:embeded_ps1:
+
+:__END

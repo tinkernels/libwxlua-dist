@@ -15,12 +15,13 @@ IF %ERRORLEVEL% EQU 0 (
 )
 set _PSC=%_PWSH% -NoProfile -ExecutionPolicy Bypass -Command
 
-set TKVAR_BUILD_DIR=build-wxWidgets\x64
+set TK_Build_Dir=build-wxWidgets\x64
+set TK_Src_Dir=wxWidgets-src
 
-rmdir /q /s "%TKVAR_BUILD_DIR%"
-mkdir "%TKVAR_BUILD_DIR%"
+rmdir /q /s "%TK_Build_Dir%"
+mkdir "%TK_Build_Dir%"
 
-%_PSC% Copy-Item -Path "wxWidgets-src\*" -Destination "%TKVAR_BUILD_DIR%" -recurse -Force
+%_PSC% Copy-Item -Path "%TK_Src_Dir%\*" -Destination "%TK_Build_Dir%" -Recurse -Force
 
-cd "%TKVAR_BUILD_DIR%\build\msw"
+cd "%TK_Build_Dir%\build\msw"
 nmake /f makefile.vc BUILD=release SHARED=1 UNICODE=1 TARGET_CPU=X64

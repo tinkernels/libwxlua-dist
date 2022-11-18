@@ -10,7 +10,7 @@ cmd /c 3-clean-4release.cmd
 
 7z a luajit-dist-winx64.7z luajit-dist-winx64
 7z a luajit-dist-win32.7z luajit-dist-win32
-7z a wxlua-dist-winx64.7z build-wxlua\x64
-7z a wxlua-dist-win32.7z build-wxlua\x86
-7z a wxWidgets-dist-winx64.7z build-wxWidgets\x64
-7z a wxWidgets-dist-win32.7z build-wxWidgets\x86
+7z a wxlua-dist-winx64.7z wxlua-dist-winx64
+7z a wxlua-dist-win32.7z wxlua-dist-win32
+7z a wxWidgets-dist-winx64.7z wxWidgets-dist-winx64
+7z a wxWidgets-dist-win32.7z wxWidgets-dist-winx32
