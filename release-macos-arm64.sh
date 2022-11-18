@@ -31,18 +31,17 @@ bash ./1-build-wxWidgets-macos-automake.sh || exit
 bash ./2-build-wxlua-macos.sh || exit
 
 # clean for packing.
-find build-wxWidgets -mindepth 1 -maxdepth 1 ! -name lib ! -name include ! -name wx-config -exec rm -rfv {} \;
-find build-wxlua -mindepth 1 -type f ! -name "*.h" ! -name "*.so" ! -name "*.dylib" ! -name "*.a" -exec rm -rfv {} \;
-find build-wxlua -mindepth 1 -empty -type d -delete
+mv build-wxWidgets wxWidgets-dist
+find wxWidgets-dist -mindepth 1 -maxdepth 1 ! -name lib ! -name include ! -name wx-config -exec rm -rfv {} \;
 
 TK_LUAJIT_RELEASE_TARBALL="luajit-dist-macos-arm64.tar.gz"
 tar -cvf "$TK_LUAJIT_RELEASE_TARBALL" luajit-dist
 
 TK_wxWidgets_RELEASE_TARBALL="wxWidgets-dist-macos-arm64.tar.gz"
-tar -cvf "$TK_wxWidgets_RELEASE_TARBALL" build-wxWidgets
+tar -cvf "$TK_wxWidgets_RELEASE_TARBALL" wxWidgets-dist
 
 TK_wxLua_RELEASE_TARBALL="wxlua-dist-macos-arm64.tar.gz"
-tar -cvf "$TK_wxLua_RELEASE_TARBALL" build-wxlua
+tar -cvf "$TK_wxLua_RELEASE_TARBALL" wxlua-dist
 
 if [[ "$CIRRUS_RELEASE" == "" ]]; then
   echo "Not a release. No need to deploy!"

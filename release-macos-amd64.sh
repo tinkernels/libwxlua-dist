@@ -31,12 +31,8 @@ bash ./1-build-wxWidgets-macos-automake.sh || exit
 bash ./2-build-wxlua-macos.sh || exit
 
 # clean for packing.
-find build-wxWidgets -mindepth 1 -maxdepth 1 ! -name lib ! -name include ! -name wx-config -exec rm -rfv {} \;
-find build-wxlua -mindepth 1 -type f ! -name "*.h" ! -name "*.so" ! -name "*.dylib" ! -name "*.a" -exec rm -rfv {} \;
-find build-wxlua -mindepth 1 -empty -type d -delete
-
-mv build-wxlua wxlua-dist
 mv build-wxWidgets wxWidgets-dist
+find wxWidgets-dist -mindepth 1 -maxdepth 1 ! -name lib ! -name include ! -name wx-config -exec rm -rfv {} \;
 
 TK_LUAJIT_RELEASE_TARBALL="luajit-dist-macos-amd64.tar.gz"
 tar -cvf "$TK_LUAJIT_RELEASE_TARBALL" luajit-dist
