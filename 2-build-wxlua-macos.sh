@@ -49,6 +49,7 @@ echo "TK_Lua_INC_DIR: $TK_Lua_INC_DIR"
 cd "$TK_CMake_Build_DIR" || exit
 
 TK_CMake_Install_Prefix="$SH_SELF_PATH_DIR_RESULT/wxlua-dist"
+TK_Wx_Components="core;base;webview;gl;xrc;xml;net;media;propgrid;richtext;aui;stc;html;adv"
 
 TK_CMake_Custom_Opts+=(-DMACOSX_RPATH=TRUE)
 TK_CMake_Custom_Opts+=(-DCMAKE_BUILD_TYPE=MinSizeRel)
@@ -57,7 +58,8 @@ TK_CMake_Custom_Opts+=(-DBUILD_SHARED_LIBS=FALSE)
 TK_CMake_Custom_Opts+=(-DBUILD_OUTPUT_DIRECTORY_ARCHIVE=lib)
 TK_CMake_Custom_Opts+=(-DBUILD_OUTPUT_DIRECTORY_LIBRARY=lib)
 TK_CMake_Custom_Opts+=(-DBUILD_OUTPUT_DIRECTORY_RUNTIME=bin)
-TK_CMake_Custom_Opts+=(-DwxLuaBind_COMPONENTS="gl;stc;xrc;richtext;html;media;aui;adv;core;xml;net;base")
+TK_CMake_Custom_Opts+=(-DwxLuaBind_COMPONENTS="$TK_Wx_Components")
+TK_CMake_Custom_Opts+=(-DwxWidgets_COMPONENTS="$TK_Wx_Components")
 TK_CMake_Custom_Opts+=(-DwxLua_LUA_INCLUDE_DIR="$TK_Lua_INC_DIR")
 TK_CMake_Custom_Opts+=(-DwxLua_LUA_LIBRARY="$TK_Lua_LIB")
 TK_CMake_Custom_Opts+=(-DwxLua_LUA_LIBRARY_USE_BUILTIN=FALSE)
