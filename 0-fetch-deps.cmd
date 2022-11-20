@@ -16,6 +16,8 @@ set _PSC=%_PWSH% -NoProfile -ExecutionPolicy Bypass -Command
 %_PSC% Invoke-WebRequest -Uri "https://github.com/tinkernels/openresty-luajit2-dist/releases/latest/download/luajit-dist-win32.7z" -OutFile "luajit-dist-win32.7z"
 %_PSC% Invoke-WebRequest -Uri "https://github.com/tinkernels/openresty-luajit2-dist/releases/latest/download/luajit-dist-winx64.7z" -OutFile "luajit-dist-winx64.7z"
 
+%_PSC% Invoke-WebRequest -Uri "https://www.nuget.org/api/v2/package/Microsoft.Web.WebView2" -OutFile Microsoft.Web.WebView2.nupkg.zip
+
 7z x luajit-dist-win32.7z
 7z x luajit-dist-winx64.7z
 
