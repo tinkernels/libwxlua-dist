@@ -5,6 +5,7 @@ cd /d %~dp0
 
 call vsenv.cmd 32
 
+set CMAKE_GENERATOR_PARAM=
 for /F "tokens=1 delims=." %%a in ('MSBuild -nologo -version') do (
     set MSVC_TOOLSET=%%a
 )
@@ -39,7 +40,7 @@ set TK_Build_Ver_MSW_MMU=msw32u
 set TK_WxWidgets_ROOT=%~dp0build-wxWidgets\x86
 set TK_WxWidgets_LIBDIR=%TK_WxWidgets_ROOT%\lib\vc_dll
 set TK_wxWidgets_VERSION=3.2.1
-set TK_Wxlua_Components="gl;stc;xrc;richtext;html;media;aui;adv;core;xml;net;base"
+set TK_Wxlua_Components="core;base;webview;gl;xrc;xml;net;media;propgrid;richtext;aui;stc;html;adv"
 set TK_Lua_INCDIR=%~dp0luajit-dist-win32\include
 set TK_Lua_LIB=%~dp0luajit-dist-win32\lib\lua51.lib
 
