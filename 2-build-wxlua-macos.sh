@@ -24,59 +24,61 @@ unset ORIGINAL_PWD_GETSELFPATHVAR SH_FILE_RUN_PATH_GETSELFPATHVAR SH_FILE_RUN_BA
 
 mkdir "$SH_SELF_PATH_DIR_RESULT/build-wxlua"
 cd "$SH_SELF_PATH_DIR_RESULT/build-wxlua" || exit
-TK_CUSTOM_BUILD_DIR=$(pwd -P)
-echo "TK_CUSTOM_BUILD_DIR: $TK_CUSTOM_BUILD_DIR"
+TK_CMake_Build_DIR=$(pwd -P)
+echo "TK_CMake_Build_DIR: $TK_CMake_Build_DIR"
 
 cd ../build-wxWidgets || exit
-TK_CUSTOM_WX_CONFIG_EXEC_FILE="$(pwd -P)/wx-config"
-echo "TK_CUSTOM_WX_CONFIG_EXEC_FILE: $TK_CUSTOM_WX_CONFIG_EXEC_FILE"
+TK_Custom_Wx_Config_EXEF="$(pwd -P)/wx-config"
+echo "TK_Custom_Wx_Config_EXEF: $TK_Custom_Wx_Config_EXEF"
 
-cd "$TK_CUSTOM_BUILD_DIR" || exit
+cd "$TK_CMake_Build_DIR" || exit
 
 cd ../wxlua-src/wxLua || exit
-TK_CUSTOM_WXLUA_SRC_DIR=$(pwd -P)
-echo "TK_CUSTOM_WXLUA_SRC_DIR: $TK_CUSTOM_WXLUA_SRC_DIR"
+TK_Custom_Wxlua_SRC_DIR=$(pwd -P)
+echo "TK_Custom_Wxlua_SRC_DIR: $TK_Custom_Wxlua_SRC_DIR"
 
-cd "$TK_CUSTOM_BUILD_DIR" || exit
+cd "$TK_CMake_Build_DIR" || exit
 
 cd ../luajit-dist || exit
-TK_CUSTOM_LUA_LIB="$(pwd -P)/lib/libluajit-5.1.dylib"
-echo "TK_CUSTOM_LUA_LIB: $TK_CUSTOM_LUA_LIB"
+TK_Lua_LIB="$(pwd -P)/lib/libluajit-5.1.dylib"
+echo "TK_Lua_LIB: $TK_Lua_LIB"
 
-TK_CUSTOM_LUA_INC_DIR="$(pwd -P)/include/luajit-2.1"
-echo "TK_CUSTOM_LUA_INC_DIR: $TK_CUSTOM_LUA_INC_DIR"
+TK_Lua_INC_DIR="$(pwd -P)/include/luajit-2.1"
+echo "TK_Lua_INC_DIR: $TK_Lua_INC_DIR"
 
-cd "$TK_CUSTOM_BUILD_DIR" || exit
+cd "$TK_CMake_Build_DIR" || exit
 
-TK_CUSTOM_CONFIGURE_OPTS+=(-DMACOSX_RPATH=TRUE)
-TK_CUSTOM_CONFIGURE_OPTS+=(-DBUILD_SHARED_LIBS=FALSE)
-TK_CUSTOM_CONFIGURE_OPTS+=(-DBUILD_OUTPUT_DIRECTORY_ARCHIVE=lib)
-TK_CUSTOM_CONFIGURE_OPTS+=(-DBUILD_OUTPUT_DIRECTORY_LIBRARY=lib)
-TK_CUSTOM_CONFIGURE_OPTS+=(-DBUILD_OUTPUT_DIRECTORY_RUNTIME=bin)
-TK_CUSTOM_CONFIGURE_OPTS+=(-DwxLuaBind_COMPONENTS="gl;stc;xrc;richtext;html;media;aui;adv;core;xml;net;base")
-TK_CUSTOM_CONFIGURE_OPTS+=(-DCMAKE_BUILD_TYPE=MinSizeRel)
-# TK_CUSTOM_CONFIGURE_OPTS+=(-DCMAKE_BUILD_TYPE=RelWithDebInfo)
-# TK_CUSTOM_CONFIGURE_OPTS+=(-DwxLuaBind_COMPONENTS="gl;scintilla;mono")
-# TK_CUSTOM_CONFIGURE_OPTS+=(-DwxLuaBind_COMPONENTS="gl;mono")
+TK_CMake_Install_Prefix="$SH_SELF_PATH_DIR_RESULT/wxlua-dist"
 
-echo "TK_CUSTOM_CONFIGURE_OPTS: ${TK_CUSTOM_CONFIGURE_OPTS[*]}"
+TK_CMake_Custom_Opts+=(-DMACOSX_RPATH=TRUE)
+TK_CMake_Custom_Opts+=(-DCMAKE_BUILD_TYPE=MinSizeRel)
+TK_CMake_Custom_Opts+=(-DCMAKE_INSTALL_PREFIX="$TK_CMake_Install_Prefix")
+TK_CMake_Custom_Opts+=(-DBUILD_SHARED_LIBS=FALSE)
+TK_CMake_Custom_Opts+=(-DBUILD_OUTPUT_DIRECTORY_ARCHIVE=lib)
+TK_CMake_Custom_Opts+=(-DBUILD_OUTPUT_DIRECTORY_LIBRARY=lib)
+TK_CMake_Custom_Opts+=(-DBUILD_OUTPUT_DIRECTORY_RUNTIME=bin)
+TK_CMake_Custom_Opts+=(-DwxLuaBind_COMPONENTS="gl;stc;xrc;richtext;html;media;aui;adv;core;xml;net;base")
+TK_CMake_Custom_Opts+=(-DwxLua_LUA_INCLUDE_DIR="$TK_Lua_INC_DIR")
+TK_CMake_Custom_Opts+=(-DwxLua_LUA_LIBRARY="$TK_Lua_LIB")
+TK_CMake_Custom_Opts+=(-DwxLua_LUA_LIBRARY_USE_BUILTIN=FALSE)
+TK_CMake_Custom_Opts+=(-DwxWidgets_CONFIG_EXECUTABLE="$TK_Custom_Wx_Config_EXEF")
+TK_CMake_Custom_Opts+=(-G "Unix Makefiles")
+TK_CMake_Custom_Opts+=(-S "$TK_Custom_Wxlua_SRC_DIR")
+TK_CMake_Custom_Opts+=(-B "$TK_CMake_Build_DIR")
 
+echo "TK_CMake_Custom_Opts: ${TK_CMake_Custom_Opts[*]}"
 # loop 5 times as wxlua project recommended.
 for _ in {1..3}; do
-cmake "${TK_CUSTOM_CONFIGURE_OPTS[@]}" \
-    -DwxLua_LUA_INCLUDE_DIR="$TK_CUSTOM_LUA_INC_DIR" \
-    -DwxLua_LUA_LIBRARY="$TK_CUSTOM_LUA_LIB" \
-    -DwxLua_LUA_LIBRARY_USE_BUILTIN=FALSE \
-    -DwxWidgets_CONFIG_EXECUTABLE="$TK_CUSTOM_WX_CONFIG_EXEC_FILE" \
-    -G "Unix Makefiles" \
-    -S"$TK_CUSTOM_WXLUA_SRC_DIR" \
-    -B.
+cmake "${TK_CMake_Custom_Opts[@]}"     
 done
 
 # echo -n "press enter to continue: "; read -r
 
 cmake --build .
+cmake --install .
 
-cp -fv "$TK_CUSTOM_BUILD_DIR/modules/luamodule/lib/MinSizeRel/libwx.dylib" "$SH_SELF_PATH_DIR_RESULT/luajit-dist/lib/lua/5.1"
+rm -rfv "${TK_CMake_Install_Prefix:?}/bin"
+rm -rfv "${TK_CMake_Install_Prefix:?}/share"
+cp -fv "$TK_CMake_Install_Prefix/lib/libwx.dylib" "$SH_SELF_PATH_DIR_RESULT/luajit-dist/lib/lua/5.1"
 
 echo -en '\a'
