@@ -6,7 +6,7 @@ macos_instance:
 
 task:
   name: build and release
-  only_if: $CIRRUS_RELEASE != ''
+  only_if: $CIRRUS_CHANGE_TITLE =~ '.*ci:release.*'
   check_clang_script:
     - clang --version
   build_release_script:
